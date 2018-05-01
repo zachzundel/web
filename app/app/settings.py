@@ -381,6 +381,8 @@ AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY', default='')
 S3_REPORT_BUCKET = env('S3_REPORT_BUCKET', default='') # TODO
 S3_REPORT_PREFIX = env('S3_REPORT_PREFIX', default='') # TODO
 
+ONESIGNAL_APP_ID = env('ONESIGNAL_APP_ID', default='')
+
 INSTALLED_APPS += env.list('DEBUG_APPS', default=[])
 
 # Faucet App config

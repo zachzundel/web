@@ -51,6 +51,7 @@ def insert_settings(request):
         'env': settings.ENV,
         'email_key': email_key,
         'profile_id': profile.id if profile else '',
+        'onesignal_app_id': settings.ONESIGNAL_APP_ID,
     }
     context['json_context'] = json.dumps(context)
 
