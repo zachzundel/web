@@ -41,11 +41,11 @@ import retail.views
 import tdi.views
 from dashboard.router import router as dbrouter
 from external_bounties.router import router as ebrouter
+from integration.router import router as integration_router
 
 from .sitemaps import sitemaps
 
 urlpatterns = [
-
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
 
     # api views
@@ -54,7 +54,8 @@ urlpatterns = [
     url(r'^api/v0.1/faucet/save/?', faucet.views.save_faucet, name='save_faucet'),
     url(r'^api/v0.1/', include(dbrouter.urls)),
     url(r'^api/v0.1/', include(ebrouter.urls)),
-    url(r'^actions/api/v0.1/', include(dbrouter.urls)),  # same as active, but not cached in cluodfront
+    url(r'^api/v0.1/', include(integration_router.urls)),
+    url(r'^actions/api/v0.1/', include(dbrouter.urls)),  # same as active, but not cached in cloudfront.
 
     # dashboard views
 
@@ -246,6 +247,10 @@ urlpatterns = [
     path(settings.SENDGRID_EVENT_HOOK_URL, marketing.webhookviews.process, name='sendgrid_event_process'),
     # gitcoinbot
     url(settings.GITHUB_EVENT_HOOK_URL, gitcoinbot.views.payload, name='payload'),
+]
+
+urlpatterns += [
+    path('integration/', include('integration.urls', namespace='integration')),
 ]
 
 if settings.ENABLE_SILK:

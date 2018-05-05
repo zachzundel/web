@@ -1,0 +1,30 @@
+{% extends "settings/settings.html" %}
+{% load i18n static %}
+{% block content %}
+<p>
+  <a class="btn btn-default" href="{% url 'integration_list' %}">{% trans "Integration Listing" %}</a>
+</p>
+<table class="table">
+  <tr>
+    <td>name</td>
+    <td>{{ object.name }}</td>
+  </tr>
+  <tr>
+    <td>slug</td>
+    <td>{{ object.slug }}</td>
+  </tr>
+  <tr>
+    <td>created</td>
+    <td>{{ object.created }}</td>
+  </tr>
+  <tr>
+    <td>last_updated</td>
+    <td>{{ object.last_updated }}</td>
+  </tr>
+  <tr>
+    <td>config</td>
+    <td>{{ object.config }}</td>
+  </tr>
+</table>
+<a class="btn btn-primary" href="{{ object.get_update_url }}">{% trans "Edit Integration" %}</a>
+{% endblock %}
