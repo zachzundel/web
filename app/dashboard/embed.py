@@ -359,6 +359,7 @@ def add_gitcoin_logo_blend(avatar, icon_size):
 
 
 def avatar(request, _org_name=None, add_gitcoincologo=None):
+    print('IN AVATAR')
     # config
     icon_size = (215, 215)
     avatar_component_size = (899.2, 1415.7)
@@ -371,6 +372,7 @@ def avatar(request, _org_name=None, add_gitcoincologo=None):
     # Gitcoin avatar
     COMPONENT_BASE = 'assets/v2/images/avatar/'
     def avcomponent(path):
+        print('IN AVCOMP: ', path)
         scaleFactor = icon_size[1] / avatar_component_size[1]
         newWidth = avatar_component_size[0] * scaleFactor
         icon_center = icon_size[0] / 2
@@ -389,6 +391,7 @@ def avatar(request, _org_name=None, add_gitcoincologo=None):
         avcomponent('Mouth/0.svg'),
         avcomponent('Nose/0.svg'),
     )
+    print('after AVATAR')
     resultPath = COMPONENT_BASE + 'test.svg'
     final_avatar.save(resultPath)
     file = open(resultPath)

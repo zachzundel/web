@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django_extensions',
     'app',
+    'avatar',
     'retail',
     'rest_framework',
     'bootstrap3',
@@ -170,6 +171,8 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': []
 }
+
+RUNSERVERPLUS_POLLER_RELOADER_TYPE = 'auto'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

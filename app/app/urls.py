@@ -239,6 +239,8 @@ urlpatterns = [
     path('actions/bounty/<int:bounty_id>/interest/<int:profile_id>/uninterested/', dashboard.views.uninterested, name='uninterested'),
     # Legacy Support
     path('legacy/', include('legacy.urls', namespace='legacy')),
+    # Avatar
+    path('avatar/', include('avatar.urls', namespace='avatar')),
     re_path(r'^logout/$', auth_views.logout, name='logout'),
     re_path(r'^gh-login/$', dashboard.views.gh_login, name='gh_login'),
     path('', include('social_django.urls', namespace='social')),
