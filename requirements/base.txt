@@ -52,3 +52,5 @@ imageio
 boto3
 django-storages
 easy-thumbnails
+django-taggit==0.22.2
+django-crispy-forms==1.7.2

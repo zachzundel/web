@@ -38,6 +38,7 @@ from django.utils.translation import gettext_lazy as _
 
 import pytz
 import requests
+from account.models import TaggedKeyword
 from dashboard.tokens import addr_to_token
 from economy.models import SuperModel
 from economy.utils import ConversionRateNotFoundError, convert_amount, convert_token_to_usdt
@@ -45,6 +46,7 @@ from github.utils import (
     _AUTH, HEADERS, TOKEN_URL, build_auth_dict, get_issue_comments, get_user, issue_number, org_name, repo_name,
 )
 from rest_framework import serializers
+from taggit.managers import TaggableManager
 from web3 import Web3
 
 from .signals import m2m_changed_interested
@@ -932,6 +934,7 @@ class Profile(SuperModel):
     # Sample repos_data: https://gist.github.com/mbeacom/c9e4fda491987cb9728ee65b114d42c7
     repos_data = JSONField(default={})
     max_num_issues_start_work = models.IntegerField(default=3)
+    keywords = TaggableManager(blank=True, through=TaggedKeyword)
 
     @property
     def is_org(self):

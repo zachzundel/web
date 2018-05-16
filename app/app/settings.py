@@ -63,6 +63,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'storages',
+    'taggit',
+    'crispy_forms',
     'social_django',
     'django.contrib.humanize',
     'django.contrib.sitemaps',
@@ -73,6 +75,7 @@ INSTALLED_APPS = [
     'retail',
     'rest_framework',
     'bootstrap3',
+    'account',
     'marketing',
     'economy',
     'dashboard',
@@ -106,6 +109,8 @@ MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 ROOT_URLCONF = env('ROOT_URLCONF', default='app.urls')
 
 AUTHENTICATION_BACKENDS = (
@@ -119,7 +124,9 @@ TEMPLATES = [
         'DIRS': [
             'retail/templates/',
             'external_bounties/templates/',
-            'dataviz/templates',
+            'dataviz/templates/',
+            'integration/templates/',
+            'account/templates/',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -227,6 +234,8 @@ if not ENV in ['local', 'test']:
 else:
     LOGGING = {}
 
+TAGGIT_CASE_INSENSITIVE = env.bool('TAGGIT_CASE_INSENSITIVE', default=True)
+
 GEOIP_PATH = env('GEOIP_PATH', default='/usr/share/GeoIP/')
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
@@ -240,6 +249,12 @@ STATIC_ROOT = root('static')
 
 STATIC_HOST = env('STATIC_HOST', default='')
 STATIC_URL = STATIC_HOST + env('STATIC_URL', default='/static/')
+
+DISCORD_BOT_NAME = env('DISCORD_BOT_NAME', default='gitcoin-bot')
+DISCORD_BOT_USERNAME = env('DISCORD_BOT_USERNAME', default='gitcoin-bot#8056')
+DISCORD_BOT_TOKEN = env('DISCORD_BOT_TOKEN', default='')
+DISCORD_CLIENT_ID = env('DISCORD_CLIENT_ID', default='')
+DISCORD_CLIENT_SECRET = env('DISCORD_CLIENT_SECRET', default='')
 
 THUMBNAIL_PROCESSORS = easy_thumbnails_defaults.THUMBNAIL_PROCESSORS + (
     'ethos.thumbnail_processors.circular_processor', )

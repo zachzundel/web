@@ -40,6 +40,7 @@ import marketing.webhookviews
 import retail.emails
 import retail.views
 import tdi.views
+from account.api import router as account_router
 from dashboard.router import router as dbrouter
 from external_bounties.router import router as ebrouter
 from integration.router import router as integration_router
@@ -56,6 +57,7 @@ urlpatterns = [
     url(r'^api/v0.1/', include(dbrouter.urls)),
     url(r'^api/v0.1/', include(ebrouter.urls)),
     url(r'^api/v0.1/', include(integration_router.urls)),
+    url(r'^api/v0.1/', include(account_router.urls)),
     url(r'^actions/api/v0.1/', include(dbrouter.urls)),  # same as active, but not cached in cloudfront.
 
     # dashboard views
@@ -253,6 +255,9 @@ urlpatterns = [
     path(settings.SENDGRID_EVENT_HOOK_URL, marketing.webhookviews.process, name='sendgrid_event_process'),
     # gitcoinbot
     url(settings.GITHUB_EVENT_HOOK_URL, gitcoinbot.views.payload, name='payload'),
+
+    # Account
+    path('account/', include('account.urls', namespace='account')),
 ]
 
 urlpatterns += [

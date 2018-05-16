@@ -34,7 +34,16 @@ class Integration(SuperModel):
     # last_updated = models.DateTimeField(auto_now=True, editable=False)
     config = JSONField(default=dict)
     # The config field will hold repositories, auth data, etc.
-    profile = models.ForeignKey('dashboard.Profile', related_name='integrations', on_delete=models.CASCADE)
+    profile = models.ForeignKey(
+        'dashboard.Profile',
+        related_name='integrations',
+        on_delete=models.CASCADE,
+        null=True)
+    organization = models.ForeignKey(
+        'account.Organization',
+        related_name='integrations',
+        on_delete=models.CASCADE,
+        null=True)
 
     class Meta:
         """Define the metadata for the Integration model."""
