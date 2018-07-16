@@ -18,7 +18,7 @@
 '''
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import ValidationError
-from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.validators import validate_email
 from django.http import Http404, JsonResponse
 from django.shortcuts import redirect
@@ -362,7 +362,7 @@ def results(request, keyword=None):
 def activity(request):
     """Render the Activity response."""
     icons = {
-        'title': 'Activity',
+        'title': _('Activity'),
         'new_tip': 'fa-thumbs-up',
         'start_work': 'fa-lightbulb',
         'new_bounty': 'fa-money-bill-alt',
@@ -392,13 +392,21 @@ def activity(request):
         return activity
 
     activities = Activity.objects.all().order_by('-created')
-    p = Paginator(activities, 300)
-    page = request.GET.get('page', 1)
+    limit = request.GET.get('limit', 25)
+    page = request.GET.get('page')
+    paginator = Paginator(activities, limit)
+
+    try:
+        p = paginator.page(page)
+    except PageNotAnInteger:
+        p = paginator.page(1)
+    except EmptyPage:
+        p = paginator.page(paginator.num_pages)
 
     context = {
         'p': p,
         'page': p.get_page(page),
-        'title': 'Activity Feed',
+        'title': _('Activity Feed'),
     }
     context["activities"] = [add_view_props(a) for a in p.get_page(page)]
 
@@ -884,7 +892,7 @@ def newtoken(request):
                 )
             new_token_request(obj)
             context['msg'] = str(_('Your token has been submitted and will be listed within 2 business days if it is accepted.'))
-    
+
     return TemplateResponse(request, 'newtoken.html', context)
 
 
